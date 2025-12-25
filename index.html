@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Образовательный путь студента</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f0f4f8; color: #2c3e50; }
+    .slide {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      padding: 2rem;
+    }
+    .slide.active { display: flex; }
+    h1 { font-size: 2.4rem; margin-bottom: 1rem; color: #2980b9; }
+    h2 { font-size: 1.8rem; margin: 1rem 0; }
+    p { font-size: 1.3rem; line-height: 1.6; max-width: 800px; margin: 1rem auto; }
+    .highlight { color: #e74c3c; font-weight: bold; }
+    .step { font-weight: bold; font-size: 1.4rem; margin: 0.8rem 0; color: #27ae60; }
+    .note { font-size: 1rem; color: #7f8c8d; margin-top: 2rem; }
+    .duration { background: #3498db; color: white; padding: 0.3rem 0.8rem; border-radius: 4px; }
+  </style>
+</head>
+<body>
+
+  <div class="slide active" id="slide1">
+    <h1>Образовательный путь студента</h1>
+    <p>Колледж предпринимательства №11<br>Специальность: <span class="highlight">Информационные системы и программирование</span></p>
+    <p class="note">→ от записи до трудоустройства за 2 минуты</p>
+  </div>
+
+  <div class="slide" id="slide2">
+    <h2>📌 Этап 1: Запись</h2>
+    <p class="step">✅ Откройте сайт колледжа → форма подачи заявки онлайн.</p>
+    <p>Достаточно: паспорт, аттестат (или справка с места учёбы), мотивация.</p>
+    <p class="note">Без ЕГЭ — зачисление по конкурсу портфолио и собеседованию.</p>
+    <a href="http://qrcoder.ru" target="_blank"><img src="http://qrcoder.ru/code/?https%3A%2F%2Fkp11.mskobr.ru%2F%3Fysclid%3Dmjljrekymd190591488&4&0" width="164" height="164" border="0" title="QR код"></a>
+  </div>
+
+  <div class="slide" id="slide3">
+    <h2>🚀 Этап 2: Обучение (2 г. 10 мес.)</h2>
+    <p class="step">✅ 1–2 курс: основы — HTML/CSS, Python, SQL, Git</p>
+    <p class="step">✅ 3 курс: практика — Django, веб-разработка, тестирование</p>
+    <p>С 1-го курса — <span class="highlight">реальные проекты</span> и стажировки в IT-компаниях-партнёрах.</p>
+  </div>
+
+  <div class="slide" id="slide4">
+    <h2>🎯 Этап 3: Выпуск + Трудоустройство</h2>
+    <p class="step">✅ Диплом + портфолио (GitHub, Testportal, Moodle)</p>
+    <p class="step">✅ Сертификаты: Яндекс.Практикум, SkillFactory, Cisco</p>
+    <p>Средняя ЗП выпускника — <span class="highlight">от 80 000 ₽</span> (junior-разработчик, QA, support engineer).</p>
+  </div>
+
+  <div class="slide" id="slide5">
+    <h1>Ваш путь — это не обучение,<br>а <span class="highlight">вход в профессию</span>.</h1>
+    <p class="note">Колледж предпринимательства №11 — учим тому, что работает <em>сейчас</em>.</p>
+  </div>
+
+  <div class="slide" id="slide6">
+    <h1>Где нас найти?</h1>
+    <div style="position:relative;overflow:hidden;"><a href="https://yandex.ru/maps/213/moscow/?utm_medium=mapframe&utm_source=maps" style="color:#eee;font-size:12px;position:absolute;top:0px;">Москва</a><a href="https://yandex.ru/maps/213/moscow/house/leningradskoye_shosse_13a/Z04Ycg5mS0UGQFtvfXRweX5gYQ==/?ll=37.497453%2C55.818099&utm_medium=mapframe&utm_source=maps&z=17.59" style="color:#eee;font-size:12px;position:absolute;top:14px;">Ленинградское шоссе, 13А — Яндекс Карты</a><iframe src="https://yandex.ru/map-widget/v1/?ll=37.497453%2C55.818099&mode=whatshere&whatshere%5Bpoint%5D=37.496157%2C55.818040&whatshere%5Bzoom%5D=17&z=17.59" width="560" height="400" frameborder="1" allowfullscreen="true" style="position:relative;"></iframe></div>
+  </div>
+  
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let i = 0;
+    function next() {
+      slides[i].classList.remove('active');
+      i = (i + 1) % slides.length;
+      slides[i].classList.add('active');
+    }
+    setInterval(next, 40000); // смена каждые 8 сек (всего ~40 сек автопрокрутки)
+    // Можно управлять вручную: клик → след. слайд
+    document.addEventListener('click', next);
+  </script>
+
+</body>
+</html>
+
