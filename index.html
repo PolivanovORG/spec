@@ -3,9 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <title>Образовательный путь студента</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Roboto+Mono&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f0f4f8; color: #2c3e50; }
+    
+    body {
+      font-family: 'Montserrat', 'Segoe UI', Tahoma, sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      color: #ecf0f1;
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
     .slide {
       display: none;
       flex-direction: column;
@@ -14,15 +31,180 @@
       height: 100vh;
       text-align: center;
       padding: 2rem;
+      position: relative;
+      opacity: 0;
+      transform: scale(0.95);
+      transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
-    .slide.active { display: flex; }
-    h1 { font-size: 2.4rem; margin-bottom: 1rem; color: #2980b9; }
-    h2 { font-size: 1.8rem; margin: 1rem 0; }
-    p { font-size: 1.3rem; line-height: 1.6; max-width: 800px; margin: 1rem auto; }
-    .highlight { color: #e74c3c; font-weight: bold; }
-    .step { font-weight: bold; font-size: 1.4rem; margin: 0.8rem 0; color: #27ae60; }
-    .note { font-size: 1rem; color: #7f8c8d; margin-top: 2rem; }
-    .duration { background: #3498db; color: white; padding: 0.3rem 0.8rem; border-radius: 4px; }
+
+    .slide.active {
+      display: flex;
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Эффект "всплывания" для текста внутри слайда */
+    .slide.active h1,
+    .slide.active h2,
+    .slide.active p,
+    .slide.active .step {
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    .slide.active .step:nth-child(3) { animation-delay: 0.2s; }
+    .slide.active .step:nth-child(4) { animation-delay: 0.4s; }
+    .slide.active p:not(.step):nth-of-type(2) { animation-delay: 0.3s; }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    h1 {
+      font-size: 3.2rem;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(90deg, #1abc9c, #3498db, #9b59b6, #e74c3c);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    }
+
+    h2 {
+      font-size: 2.4rem;
+      margin: 1.2rem 0;
+      color: #f1c40f;
+      font-weight: 700;
+      text-shadow: 0 0 12px rgba(241, 196, 15, 0.5);
+    }
+
+    p {
+      font-size: 1.4rem;
+      line-height: 1.7;
+      max-width: 850px;
+      margin: 1.2rem auto;
+      color: #ecf0f1;
+      font-weight: 400;
+    }
+
+    .highlight {
+      color: #ff6b6b;
+      font-weight: 800;
+      text-shadow: 0 0 10px rgba(255, 107, 107, 0.6);
+      position: relative;
+      display: inline-block;
+    }
+
+    .highlight::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(90deg, transparent, #ff9a9e, transparent);
+      border-radius: 3px;
+      animation: pulseGlow 2s infinite;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+
+    .step {
+      font-weight: 700;
+      font-size: 1.6rem;
+      margin: 1rem 0;
+      color: #1abc9c;
+      background: rgba(26, 188, 156, 0.12);
+      padding: 12px 24px;
+      border-radius: 12px;
+      display: inline-block;
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(26, 188, 156, 0.2);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .step::before {
+      content: '✓';
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #1abc9c;
+      font-weight: bold;
+    }
+
+    .note {
+      font-size: 1.1rem;
+      color: #95a5a6;
+      margin-top: 2.2rem;
+      font-style: italic;
+      max-width: 700px;
+    }
+
+    .duration {
+      background: linear-gradient(135deg, #2980b9, #3498db);
+      color: white;
+      padding: 0.4rem 1rem;
+      border-radius: 30px;
+      display: inline-block;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+      margin-top: 0.5rem;
+    }
+
+    /* QR code animation */
+    .qr-code {
+      animation: float 4s ease-in-out infinite;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    /* Particles effect (subtle) */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: 
+        radial-gradient(circle at 20% 30%, rgba(255,255,255,0.03) 2px, transparent 2px),
+        radial-gradient(circle at 80% 70%, rgba(255,255,255,0.02) 1px, transparent 1px),
+        radial-gradient(circle at 50% 20%, rgba(102, 204, 255, 0.05) 1px, transparent 1px);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* Interactive hint */
+    .click-hint {
+      position: absolute;
+      bottom: 30px;
+      font-size: 0.9rem;
+      color: #7f8c8d;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-10px); }
+      60% { transform: translateY(-5px); }
+    }
   </style>
 </head>
 <body>
@@ -31,28 +213,29 @@
     <h1>Образовательный путь студента</h1>
     <p>Колледж предпринимательства №11<br>Специальность: <span class="highlight">Информационные системы и программирование</span></p>
     <p class="note">→ от записи до трудоустройства за 2 минуты</p>
+    <div class="click-hint">👆 Кликните — чтобы продолжить</div>
   </div>
 
   <div class="slide" id="slide2">
     <h2>📌 Этап 1: Запись</h2>
-    <p class="step">✅ Откройте сайт колледжа → форма подачи заявки онлайн.</p>
-    <p>Достаточно: паспорт, аттестат (или справка с места учёбы), мотивация.</p>
+    <p class="step">Откройте сайт колледжа → форма подачи заявки онлайн</p>
+    <p class="step">Паспорт, аттестат, мотивация — и вы почти внутри!</p>
     <p class="note">Без ЕГЭ — зачисление по конкурсу портфолио и собеседованию.</p>
-    <a href="http://qrcoder.ru" target="_blank"><img src="https://github.com/user-attachments/assets/cebc63f9-b3b8-409b-b21f-0fa5be258e6a" width="164" height="164" border="0" title="QR код"></a>
+    <img class="qr-code" src="https://github.com/user-attachments/assets/cebc63f9-b3b8-409b-b21f-0fa5be258e6a" width="180" height="180" alt="QR код">
   </div>
 
   <div class="slide" id="slide3">
     <h2>🚀 Этап 2: Обучение (2 г. 10 мес.)</h2>
-    <p class="step">✅ 1–2 курс: основы — HTML/CSS, Python, SQL, Git</p>
-    <p class="step">✅ 3 курс: практика — Django, веб-разработка, тестирование</p>
+    <p class="step">1–2 курс: HTML/CSS, Python, SQL, Git — фундамент</p>
+    <p class="step">3 курс: Django, веб-разработка, CI/CD, тестирование</p>
     <p>С 1-го курса — <span class="highlight">реальные проекты</span> и стажировки в IT-компаниях-партнёрах.</p>
   </div>
 
   <div class="slide" id="slide4">
     <h2>🎯 Этап 3: Выпуск + Трудоустройство</h2>
-    <p class="step">✅ Диплом + портфолио (GitHub, Testportal, Moodle)</p>
-    <p class="step">✅ Сертификаты: Яндекс.Практикум, SkillFactory, Cisco</p>
-    <p>Средняя ЗП выпускника — <span class="highlight">от 80 000 ₽</span> (junior-разработчик, QA, support engineer).</p>
+    <p class="step">Диплом + живое портфолио (GitHub, Testportal, Moodle)</p>
+    <p class="step">Сертификаты: Яндекс.Практикум, SkillFactory, Cisco</p>
+    <p>Средняя ЗП выпускника — <span class="highlight">от 80 000 ₽</span><br><span class="duration">junior-разработчик / QA / support</span></p>
   </div>
 
   <div class="slide" id="slide5">
@@ -61,23 +244,52 @@
   </div>
 
   <div class="slide" id="slide6">
-    <h1>Где нас найти?</h1>
-    <div style="position:relative;overflow:hidden;"><a href="https://yandex.ru/maps/213/moscow/?utm_medium=mapframe&utm_source=maps" style="color:#eee;font-size:12px;position:absolute;top:0px;">Москва</a><a href="https://yandex.ru/maps/213/moscow/house/leningradskoye_shosse_13a/Z04Ycg5mS0UGQFtvfXRweX5gYQ==/?ll=37.497453%2C55.818099&utm_medium=mapframe&utm_source=maps&z=17.59" style="color:#eee;font-size:12px;position:absolute;top:14px;">Ленинградское шоссе, 13А — Яндекс Карты</a><iframe src="https://yandex.ru/map-widget/v1/?ll=37.497453%2C55.818099&mode=whatshere&whatshere%5Bpoint%5D=37.496157%2C55.818040&whatshere%5Bzoom%5D=17&z=17.59" width="560" height="400" frameborder="1" allowfullscreen="true" style="position:relative;"></iframe></div>
+    <h1>📍 Где нас найти?</h1>
+    <div style="position:relative;overflow:hidden;width:100%;max-width:600px;">
+      <iframe 
+        src="https://yandex.ru/map-widget/v1/?ll=37.497453%2C55.818099&z=16&mode=search&text=%D0%9B%D0%B5%D0%BD%D0%B8%D0%BD%D0%B3%D1%80%D0%B0%D0%B4%D1%81%D0%BA%D0%BE%D0%B5%20%D1%88%D0%BE%D1%81%D1%81%D0%B5%2C%2013%D0%90" 
+        width="100%" 
+        height="340" 
+        frameborder="0" 
+        allowfullscreen
+        style="border-radius:16px;box-shadow:0 12px 30px rgba(0,0,0,0.3);"
+      ></iframe>
+    </div>
+    <p class="note" style="margin-top:1.5rem;">Ленинградское шоссе, 13А, Москва</p>
   </div>
-  
+
   <script>
-    const slides = document.querySelectorAll('.slide');
+    const slides = Array.from(document.querySelectorAll('.slide'));
     let i = 0;
+
     function next() {
       slides[i].classList.remove('active');
       i = (i + 1) % slides.length;
       slides[i].classList.add('active');
+      // Сброс анимаций для повторного проигрывания
+      setTimeout(() => {
+        slides[i].querySelectorAll('h1, h2, p, .step').forEach(el => {
+          el.style.animation = 'none';
+          void el.offsetWidth; // трюк для перезапуска анимации
+          el.style.animation = null;
+        });
+      }, 50);
     }
-    setInterval(next, 20000); // смена каждые 8 сек (всего ~40 сек автопрокрутки)
-    // Можно управлять вручную: клик → след. слайд
+
+    // Автопрокрутка каждые 7 секунд
+    setInterval(next, 7000);
+
+    // Клик → следующий слайд
     document.addEventListener('click', next);
+
+    // Доп. эффект: нажатие пробела / → / ↓
+    document.addEventListener('keydown', (e) => {
+      if (['ArrowRight', 'ArrowDown', ' ', 'Enter'].includes(e.key)) {
+        e.preventDefault();
+        next();
+      }
+    });
   </script>
 
 </body>
 </html>
-
