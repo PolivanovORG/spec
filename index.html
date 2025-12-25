@@ -73,7 +73,7 @@
       i = (i + 1) % slides.length;
       slides[i].classList.add('active');
     }
-    setInterval(next, 40000); // смена каждые 8 сек (всего ~40 сек автопрокрутки)
+    setInterval(next, 20000); // смена каждые 8 сек (всего ~40 сек автопрокрутки)
     // Можно управлять вручную: клик → след. слайд
     document.addEventListener('click', next);
   </script>
