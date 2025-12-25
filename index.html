@@ -137,7 +137,7 @@
     }
 
     .step::before {
-      content: '✓';
+      content: ' ✓  ';
       position: absolute;
       left: 12px;
       top: 50%;
@@ -277,7 +277,7 @@
     }
 
     // Автопрокрутка каждые 7 секунд
-    setInterval(next, 7000);
+    setInterval(next, 20000);
 
     // Клик → следующий слайд
     document.addEventListener('click', next);
